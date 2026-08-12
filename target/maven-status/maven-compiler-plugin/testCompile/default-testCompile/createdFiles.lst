@@ -1,0 +1,3 @@
+com/hitorro/gittools/scanner/RepositoryScannerTest.class
+com/hitorro/gittools/tagger/RepositoryTaggerTest.class
+com/hitorro/gittools/git/GitServiceTest.class

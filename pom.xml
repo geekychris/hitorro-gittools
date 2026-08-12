@@ -5,9 +5,7 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.hitorro</groupId>
-    <artifactId>hitorro-gittools</artifactId>
-    <version>3.0.0</version>
+    <groupId>com.hitorro</groupId><artifactId>hitorro-gittools</artifactId><version>3.0.1</version>
     <packaging>jar</packaging>
 
     <name>Hitorro Git Tools</name>
@@ -24,6 +22,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.hitorro</groupId>
+            <artifactId>hitorro-streams</artifactId>
+            <version>3.0.1</version>
+        </dependency>
         <!-- Jackson for JSON serialization (metadata, GitHub API) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
