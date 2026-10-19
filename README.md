@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="Hitorro Gittools logo" width="180">
+</p>
+
 # hitorro-gittools
 
 A Java 21 library for programmatic Git repository management, GitHub API integration, and automated pull request creation. Part of the [HiTorro](https://github.com/hitorro) framework (`com.hitorro`, v3.0.0).
