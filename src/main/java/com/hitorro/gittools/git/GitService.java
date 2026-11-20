@@ -22,7 +22,9 @@ public class GitService {
     public GitCredentials getCredentials() { return credentials; }
 
     public boolean isGitRepository(Path path) {
-        return Files.isDirectory(path.resolve(".git"));
+        // A directory for a normal clone; a file ("gitdir: ...") for a worktree or submodule.
+        Path git = path.resolve(".git");
+        return Files.isDirectory(git) || Files.isRegularFile(git);
     }
 
     public String getCurrentBranch(Path repoPath) {
