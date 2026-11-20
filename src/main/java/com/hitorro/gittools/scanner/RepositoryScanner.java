@@ -46,7 +46,7 @@ public class RepositoryScanner {
                                     }
                                 }
                                 // Check if this is a git repo
-                                if (Files.isDirectory(dir.resolve(".git"))) {
+                                if (gitService.isGitRepository(dir)) {
                                     try {
                                         repos.add(buildRepoInfo(dir));
                                     } catch (Exception e) {
