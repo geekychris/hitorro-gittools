@@ -1,8 +1,9 @@
 package com.hitorro.gittools.pr;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.hitorro.util.json.JsonMappers;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +12,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.*;
+import com.hitorro.util.json.JsonValues;
 
 /**
  * Lightweight GitHub REST API client using JDK HttpClient.
@@ -32,7 +34,7 @@ public class GitHubApiClient {
         this.baseUrl = baseUrl;
         this.token = token;
         this.httpClient = HttpClient.newHttpClient();
-        this.mapper = new ObjectMapper();
+        this.mapper = JsonMappers.json();
     }
 
     public PullRequestResult createPullRequest(PullRequestConfig config) {
@@ -48,8 +50,8 @@ public class GitHubApiClient {
                     "/repos/" + config.repoOwner() + "/" + config.repoName() + "/pulls",
                     body);
 
-            int prNumber = response.get("number").asInt();
-            String prUrl = response.get("html_url").asText();
+            int prNumber = JsonValues.asInt(response.get("number"));
+            String prUrl = JsonValues.asText(response.get("html_url"));
             return new PullRequestResult(prNumber, prUrl, config.headBranch(), "created");
 
         } catch (Exception e) {
@@ -65,10 +67,10 @@ public class GitHubApiClient {
             if (response.isArray()) {
                 for (JsonNode pr : response) {
                     Map<String, Object> info = new LinkedHashMap<>();
-                    info.put("number", pr.get("number").asInt());
-                    info.put("title", pr.get("title").asText());
-                    info.put("state", pr.get("state").asText());
-                    info.put("url", pr.get("html_url").asText());
+                    info.put("number", JsonValues.asInt(pr.get("number")));
+                    info.put("title", JsonValues.asText(pr.get("title")));
+                    info.put("state", JsonValues.asText(pr.get("state")));
+                    info.put("url", JsonValues.asText(pr.get("html_url")));
                     prs.add(info);
                 }
             }

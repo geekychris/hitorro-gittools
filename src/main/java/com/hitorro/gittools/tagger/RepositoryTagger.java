@@ -1,9 +1,11 @@
 package com.hitorro.gittools.tagger;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.SerializationFeature;
 import com.hitorro.gittools.model.RepositoryMetadata;
+import com.hitorro.util.json.JsonMappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,12 +23,14 @@ public class RepositoryTagger {
 
     private static final Logger log = LoggerFactory.getLogger(RepositoryTagger.class);
     private final Path metadataFile;
+    /** Jackson 2 defaults (declaration order, unknown properties fail), so the file reads and writes as in 3.x. */
+    private static final ObjectMapper MAPPER = JsonMappers.builder().enable(SerializationFeature.INDENT_OUTPUT).build();
     private final ObjectMapper mapper;
     private Map<String, RepositoryMetadata> metadataMap;
 
     public RepositoryTagger(Path metadataFile) {
         this.metadataFile = metadataFile;
-        this.mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+        this.mapper = MAPPER;
         this.metadataMap = new ConcurrentHashMap<>();
         load();
     }
@@ -38,7 +42,7 @@ public class RepositoryTagger {
                         metadataFile.toFile(),
                         new TypeReference<Map<String, RepositoryMetadata>>() {}));
                 log.info("Loaded metadata for {} repositories from {}", metadataMap.size(), metadataFile);
-            } catch (IOException e) {
+            } catch (JacksonException e) {
                 log.error("Failed to load metadata from {}: {}", metadataFile, e.getMessage());
                 metadataMap = new ConcurrentHashMap<>();
             }
@@ -50,7 +54,7 @@ public class RepositoryTagger {
         try {
             Files.createDirectories(metadataFile.getParent());
             mapper.writeValue(metadataFile.toFile(), metadataMap);
-        } catch (IOException e) {
+        } catch (IOException | JacksonException e) {
             log.error("Failed to save metadata to {}: {}", metadataFile, e.getMessage());
         }
     }

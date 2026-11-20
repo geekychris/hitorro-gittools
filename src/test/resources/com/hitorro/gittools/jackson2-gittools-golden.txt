@@ -1,0 +1,42 @@
+tagger.write={\n  "/golden/repo-two" : {\n    "description" : null,\n    "tags" : [ "ml" ],\n    "language" : null,\n    "notes" : null\n  },\n  "/golden/repo-one" : {\n    "description" : "Search \\"engine\\" é\\ttab",\n    "tags" : [ "java", "search" ],\n    "language" : "Java",\n    "notes" : "n"\n  }\n}
+tagger.read.declOrder=allTags=[x];a={description='d';tags=[x];language='L';notes=<null>}
+tagger.read.alphaOrder=allTags=[x, y];a={description='d';tags=[x, y];language='L';notes='n'}
+tagger.read.unknownProperty=allTags=[];a={description=<null>;tags=[];language=<null>;notes=<null>}
+tagger.read.nullTags=allTags=[];a={description='d';tags=[];language=<null>;notes=<null>}
+tagger.read.missingTags=allTags=[];a={description='d';tags=[];language=<null>;notes=<null>}
+tagger.read.singleStringTags=allTags=[];a={description=<null>;tags=[];language=<null>;notes=<null>}
+tagger.read.numberDescription=allTags=[1, true];a={description='5';tags=[1, true];language=<null>;notes=<null>}
+tagger.read.objectDescription=allTags=[];a={description=<null>;tags=[];language=<null>;notes=<null>}
+tagger.read.trailingTokens=allTags=[x];a={description='d';tags=[x];language=<null>;notes=<null>}
+tagger.read.trailingGarbage=allTags=[x];a={description='d';tags=[x];language=<null>;notes=<null>}
+tagger.read.truncated=allTags=[];a={description=<null>;tags=[];language=<null>;notes=<null>}
+tagger.read.empty=allTags=[];a={description=<null>;tags=[];language=<null>;notes=<null>}
+tagger.read.nullDoc=throws java.lang.NullPointerException
+tagger.read.emptyObject=allTags=[];a={description=<null>;tags=[];language=<null>;notes=<null>}
+tagger.read.entryNull=throws java.lang.NullPointerException
+tagger.read.comments=allTags=[];a={description=<null>;tags=[];language=<null>;notes=<null>}
+tagger.read.singleQuotes=allTags=[];a={description=<null>;tags=[];language=<null>;notes=<null>}
+gh.create.ok=12|'https://x/pr/12'|created
+gh.create.request.ok={"title":"Title \\"q\\" é","body":"","head":"main","base":"feat/x","draft":true}
+gh.create.numberString=12|'u'|created
+gh.create.request.numberString={"title":"Title \\"q\\" é","body":"body\\nline","head":"main","base":"feat/x","draft":false}
+gh.create.numberBadString=0|'u'|created
+gh.create.numberDouble=3|'u'|created
+gh.create.numberBool=1|'u'|created
+gh.create.numberNull=0|'u'|created
+gh.create.numberObject=0|'u'|created
+gh.create.numberHuge=-539222987|'u'|created
+gh.create.urlNull=1|'null'|created
+gh.create.urlNumber=1|'5'|created
+gh.create.urlObject=1|''|created
+gh.create.urlArray=1|''|created
+gh.create.urlMissing=0|<null>|failed: NPE
+gh.create.trailingTokens=1|'u'|created
+gh.create.emptyBody=0|<null>|failed: NPE
+gh.create.http422=0|<null>|failed: GitHub API error 422: {"message":"bad"}
+gh.list.ok=[{number='1':Integer,title='t':String,state='open':String,url='u':String,}{number='2':Integer,title='null':String,state='5':String,url='v':String,}]
+gh.list.notArray=[]
+gh.list.badNumber=[{number='0':Integer,title='t':String,state='s':String,url='u':String,}]
+gh.list.objectTitle=[{number='1':Integer,title='':String,state='s':String,url='u':String,}]
+gh.list.missingTitle=[]
+gh.list.garbage=[]
