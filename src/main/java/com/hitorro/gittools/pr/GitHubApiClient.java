@@ -96,7 +96,8 @@ public class GitHubApiClient {
                 .header("Authorization", "Bearer " + token)
                 .header("Accept", "application/vnd.github+json")
                 .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(body.toString()))
+                // JsonMappers, not body.toString(): on Jackson 3 that throws past 500 nesting levels.
+                .POST(HttpRequest.BodyPublishers.ofString(JsonMappers.json().writeValueAsString(body)))
                 .build();
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         if (response.statusCode() >= 400) {
